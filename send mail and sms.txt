@@ -1,0 +1,129 @@
+ public string CreateRandomPassword(int PasswordLength)
+        {
+
+            //string _allowedChars = "0123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ";
+            string _allowedChars = "0123456789";
+            Random randNum = new Random();
+            char[] chars = new char[PasswordLength];
+            int allowedCharCount = _allowedChars.Length;
+            for (int i = 0; i < PasswordLength; i++)
+            {
+                chars[i] = _allowedChars[(int)((_allowedChars.Length) * randNum.NextDouble())];
+            }
+            return new string(chars);
+        }
+		
+		
+		 public string SendAlertSMS(string strMobile, string strAlertText)
+        {
+            string dn = ConfigurationManager.AppSettings["dn"].ToString();
+            string usr = ConfigurationManager.AppSettings["usr"].ToString();
+            string pwd = ConfigurationManager.AppSettings["pwd"].ToString();
+            string sid = ConfigurationManager.AppSettings["sid"].ToString();
+            try
+            {
+                SendSMS(dn, usr, pwd, sid, strMobile, strAlertText);
+                return "true";
+            }
+            catch
+            {
+                return "false";
+            }
+        }
+		
+		
+		/// for send email
+		
+		 // Contact Us For Demo App wp8
+        public string DemoAppMemberDtlswp8(string username, string email, string contactno)
+        {
+            ds.Clear();
+            //ds = MemberDtls.DemoAppMemberDtls(username, email, contactno);
+            string msgSubject = "Demo ROW: Members Information.";
+            MemberDtls.SendEmail(ConfigurationManager.AppSettings["frommail"].ToString(), ConfigurationManager.AppSettings["tomail"].ToString(), msgSubject, MsgBodyDemoApp(username, email, contactno));
+            ds = MemberDtls.getDemoDtls(username, email, contactno);
+            return Converters.GetJson(ds);
+        }
+		
+		
+		 public static string SendEmail(string FromMailID, string ToMailID, string MsgSubject, string MsgBody)
+    {
+        try
+        {
+            SmtpClient smtpClient = new SmtpClient();
+            MailMessage message = new MailMessage();
+
+            MailAddress fromAddress = new MailAddress(FromMailID);
+
+            smtpClient.Host = ConfigurationManager.AppSettings["smtpserver"].ToString();
+            smtpClient.Port = Convert.ToInt32(ConfigurationManager.AppSettings["port"].ToString());
+            smtpClient.EnableSsl = false;
+
+            message.From = fromAddress;
+            message.To.Add(ToMailID);
+            message.CC.Add("sudhir.mane@kaizeninfotech.com");
+            message.CC.Add("siddhi.vartak@kaizeninfotech.com");
+            //message.CC.Add("khushi@kaizeninfotech.com");
+            // message.CC.Add("umesh.mahadik@advan-t-edge.com");
+
+            // message.CC.Add("naren@kaizeninfotech.com");
+            // message.Bcc.Add("khushi@kaizeninfotech.com");
+            message.Subject = MsgSubject;
+            message.IsBodyHtml = true;
+            message.Body = MsgBody;
+
+            NetworkCredential basicAuthentication = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["frommail"].ToString(), ConfigurationManager.AppSettings["pass"].ToString());
+            smtpClient.Credentials = basicAuthentication;
+
+            try
+            {
+                smtpClient.Send(message);
+            }
+            catch (Exception er)
+            {
+                return "ServerError";
+            }
+
+            return string.Empty;
+
+        }
+        catch (SmtpFailedRecipientsException ex)
+        {
+            return "Error to send mail: " + ex.Message;
+        }
+
+    }
+	 //// web config file
+	 
+	 <appSettings>
+    <add key="imgPath" value="http://localhost:2136/RotaryWebService"/>
+    <add key="frommail" value="mailer@rosteronwheels.com"/>
+    <add key="Tomail" value="parag.pathari@advan-t-edge.com"/>
+    <add key="ToCCC" value="naren@kaizeninfotech.com"/>
+    <!--<add key="pass" value="error@123"/>-->
+    <add key="pass" value="mailer@123"/>
+
+    <add key="smtpserver" value="asd.com"/>
+    <add key="port" value="25"/>
+    <add key="IsSendMail" value="True"/>
+
+
+    <add key="dn" value="http://sd.mVaayoo.com/mvaayooapi/MessageCompose"/>
+    <add key="usr" value="sdfsd@advan-t-edge.com"/>
+    <add key="pwd" value="sdfsd@sdf"/>
+    <add key="sid" value="sdfsd"/>
+
+
+<!--
+    <add key="dn_int" value="http://www.msgtoolbox.com/api/current/send/message.php"/>
+    <add key="usr_int" value="sdfsdfn"/>
+    <add key="pwd_int" value="19794726"/>
+    <add key="sid_int" value="4673222222"/>-->
+
+    <add key="dn_int" value="http://175.143.34.193/MTSendSMS/SingleSMS.aspx"/>
+    <add key="usr_int" value="sdfsdf"/>
+    <add key="pwd_int" value="Z8sdfszvk7"/>
+    <add key="sid_int" value="sdfsd"/>
+
+
+  </appSettings>
