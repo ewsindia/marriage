@@ -1,0 +1,733 @@
+﻿@model Marriage.Models.members
+
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Home/UserMaster.cshtml";
+}
+
+<h2>Registration</h2>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<link href="../../Content/jquery-ui-1.10.4.css" rel="stylesheet" type="text/css" />
+<link href="../../Content/jquery-ui-1.10.4.min.css" rel="stylesheet" type="text/css" />
+
+<script src="../../Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery-ui-1.10.4.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#ddlcountry").change(function () {
+            var CountryId = $(this).val();
+            $.getJSON("../Home/getstateByCountryId", { countryid: CountryId },
+                        function (stateData) {
+                            var select = $("#ddlstates");
+                            select.empty();
+                            select.append($('<option/>', {
+                                value: 0,
+                                text: "Select State"
+                            }));
+
+
+                            $.each(stateData, function (index, stateData) {
+                                select.append($('<option/>', {
+                                    value: stateData.Value,
+                                    text: stateData.Text
+                                }));
+                            });
+                        });
+        });
+    });
+
+
+    $(document).ready(function () {
+        $("#dob").datepicker({ dateFormat: "dd/mm/yy" });
+    });
+
+    //    $(document).ready(function () {
+    //        $("#ddlcountry").change(function () {
+    //            var CountryId = $(this).val();
+
+    //            $.ajax({
+    //                url: "/Home/getstateByCountryId",
+    //                type: "post",
+    //                contentType: "Application/json",
+    //                data: JSON.stringify({ countryid: CountryId })
+    //            })
+    //          .done(function (stateData) {
+    //              alert("success" + JSON.stringify(stateData));
+    //              console.log("count" + stateData.length);
+    //              for (var i = 0; i < stateData.length; i++) {
+    //                  var country = stateData[i].StateName;
+    //                  console.log("State" + country);
+    //              }
+    //          })
+
+    //          $.getJSON("/Home/getstateByCountryId", { countryid: CountryId },
+    //                        function (stateData) {
+    //                            var select = $("#ddlstates");
+    //                            select.empty();
+    //                            select.append($('<option/>', {
+    //                                value: 0,
+    //                                text: "Select State"
+    //                            }));
+
+
+    //                            $.each(stateData, function (index, stateData) {
+    //                                select.append($('<option/>', {
+    //                                    value: stateData.Value,
+    //                                    text: stateData.Text
+    //                                }));
+    //                           
+    //                        });
+
+    //          .fail(function () {
+    //              alert("error");
+    //          })
+    //          .always(function () {
+    //              alert("complete");
+    //          });
+
+    //            
+    //        });
+
+
+
+    $(document).ready(function () {
+        $('#updateprofile').click(function () {
+            $('form')[0].reset();
+
+        });
+
+        $('#autogenerate').click(function () {
+            $.post('@Url.Content("~/Home/GeneratePassword")', function (data) {
+
+                $('#password, #confirmpassword').attr("value", data.password);
+
+            });
+        });
+
+    });
+
+       
+
+</script> 
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    
+    <fieldset style="border-style: none">
+    <legend>Basic Information</legend>
+     <br />
+     
+    <div class="editor-label">
+           Profile Written By :-
+        </div>
+        <div class="editor-field">
+            @Html.RadioButton("writtenby", "1")Self
+             @Html.RadioButton("writtenby", "2")Parent
+              @Html.RadioButton("writtenby", "3")Family
+               @Html.RadioButton("writtenby", "4")Friend
+            @Html.ValidationMessageFor(model => model.writtenby)
+        </div>
+        <br />
+        
+        <div class="editor-label">
+           First Name :-
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(model => model.firstname)
+            @Html.ValidationMessageFor(model => model.firstname)
+        </div>
+        
+
+        <div class="editor-label">
+           Middle Name :-
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(model => model.middlename)
+            @Html.ValidationMessageFor(model => model.middlename)
+        </div>
+       
+
+        <div class="editor-label">
+          Last Name :-
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.lastname)
+            @Html.ValidationMessageFor(model => model.lastname)
+        </div>
+        <br />
+
+          <div class="editor-label">
+           Display Name :-
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.displayname)
+            @Html.ValidationMessageFor(model => model.displayname)
+        </div>
+        <br />
+
+        <div class="editor-label">
+          I am on MarraigeExpress.In For :-
+        </div>
+        <div class="editor-field">
+           @Html.RadioButton("forwaht", "Marriage")Marriage
+             @Html.RadioButton("forwaht", "Relationship")ParRelationshipent
+              @Html.RadioButton("forwaht", "Just Curious")Just Curious
+            @Html.ValidationMessageFor(model => model.forwaht)
+        </div>
+        <br />
+
+        <div class="editor-label">
+            I Would Like to get married :-
+        </div>
+        <div class="editor-field">
+            @Html.RadioButton("timeformarriage", "Soon")Soon
+             @Html.RadioButton("timeformarriage", "Within 12 Months")Within 12 Months
+              @Html.RadioButton("timeformarriage", "NO Fixed Time")NO Fixed Time
+            @Html.ValidationMessageFor(model => model.timeformarriage)
+        </div>
+        <br />
+
+        <div class="editor-label">
+           Gender :-
+        </div>
+        <div class="editor-field">
+            @Html.RadioButton("gender", "Male")Male
+            @Html.RadioButton("gender", "Female")Female
+            @Html.ValidationMessageFor(model => model.gender)
+        </div>
+        <br />
+
+        <div class="editor-label">
+           Marital Status :-
+        </div>
+        <div class="editor-field">
+            @Html.RadioButton("maritalstatus", "1")Singles
+             @Html.RadioButton("maritalstatus", "2")Divorced
+              @Html.RadioButton("maritalstatus", "3")Windowed
+               @Html.RadioButton("maritalstatus", "4")Separated
+            @Html.ValidationMessageFor(model => model.maritalstatus)
+        </div>
+        <br />
+
+        <div class="editor-label">
+           Date Of Birth :-
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.dob, new { @Class = "dob" })
+            @Html.ValidationMessageFor(model => model.dob)
+        </div>
+        <br />
+
+        <div class="editor-label">
+           Time Of Birth :-
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.tob)
+            @Html.ValidationMessageFor(model => model.tob)
+        </div>
+        <br />
+
+         <div class="editor-label">
+            My height is :-
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.height, (SelectList)ViewData["height"], "Select Height")
+            @Html.ValidationMessageFor(model => model.height)
+        </div>
+        <br />
+
+        <div class="editor-label">
+           My weight is :-
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.weight, (SelectList)ViewData["weight"], "Select Weight")
+            @Html.ValidationMessageFor(model => model.weight)
+        </div>
+        <br />
+    
+     </fieldset>
+        
+        <fieldset style="border-style: none">
+        <legend>Religion & Culture Details</legend>
+         <br />
+        
+          <div class="editor-label">
+           Religion :-
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.religion, (SelectList)ViewData["religion"], "Select Religion")
+            @Html.ValidationMessageFor(model => model.religion)
+        </div>
+        <br />
+
+        <div class="editor-label">
+            Manglik :-
+        </div>
+        <div class="editor-field">
+           @Html.RadioButton("manglik", "Yes")Yes
+           @Html.RadioButton("manglik", "No")No
+           @Html.RadioButton("manglik", "Don't Know")Don't Know
+            @Html.ValidationMessageFor(model => model.manglik)
+        </div>
+        <br />
+
+        <div class="editor-label">
+           Culture :-
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.culture, (SelectList)ViewData["culture"], "Select Culture")
+            @Html.ValidationMessageFor(model => model.culture)
+        </div>
+        <br />
+
+        <div class="editor-label">
+          Language :-
+        </div>
+        <div class="editor-field">
+           @Html.RadioButton("language", "1")English
+           @Html.RadioButton("language", "2")Hindi
+           @Html.RadioButton("language", "3")Marathi
+            @Html.ValidationMessageFor(model => model.language)
+        </div>
+        <br />
+
+        <div class="editor-label">
+           Lifestyle :-
+        </div>
+        <div class="editor-field">
+            @Html.RadioButton("lifestyle", "Liberal")Liberal
+           @Html.RadioButton("lifestyle", "Modem")Modem
+           @Html.RadioButton("lifestyle", "Traditional")Traditional
+           @Html.RadioButton("lifestyle", "Will Tell You Later")Will Tell You Later
+            @Html.ValidationMessageFor(model => model.lifestyle)
+        </div>
+        <br />
+        
+        </fieldset>
+        
+    
+    <fieldset style="border-style: none">
+    <legend>Education & Career</legend>
+     <br />
+
+     <div class="editor-label">
+            Last Degree :-
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.lastdegree, (SelectList)ViewData["education"], "Select Education")
+            @Html.ValidationMessageFor(model => model.lastdegree)
+        </div>
+        <br />
+
+        <div class="editor-label">
+           Profession :-
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.profession, (SelectList)ViewData["occuption"], "Select Occuption")
+            @Html.ValidationMessageFor(model => model.profession)
+        </div>
+        <br />
+
+         <div class="editor-label">
+           Annual income :-
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.annualincome, (SelectList)ViewData["income"], "Select Income")
+            @Html.ValidationMessageFor(model => model.annualincome)
+        </div>
+        <br />
+    </fieldset>
+
+      <fieldset style="border-style: none">
+      <legend>Location</legend>
+       <br />
+      
+       <div class="editor-label">
+           I live in :-
+        </div>
+        <div class="editor-field">
+
+            @Html.DropDownListFor(Model => Model.countrycode, new SelectList(ViewBag.country as System.Collections.IEnumerable, "CountryID", "CountryCode"),
+"Select country", new { id = "ddlcountry" })
+
+            @Html.ValidationMessageFor(model => model.countrycode)
+        </div>
+        <br />
+
+        <div class="editor-label">
+          State Province :-
+        </div>
+        <div class="editor-field">
+           @Html.DropDownListFor(Model => Model.state, new SelectList(Enumerable.Empty<SelectListItem>(), "StateID", "StateName"),
+          "Select state", new { id = "ddlstates" })
+            @Html.ValidationMessageFor(model => model.state)
+        </div>
+        <br />
+
+        <div class="editor-label">
+           City :-
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.city)
+            @Html.ValidationMessageFor(model => model.city)
+        </div>
+        <br />
+
+        <div class="editor-label">
+           Address :-
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.address1)
+            @Html.ValidationMessageFor(model => model.address1)
+        </div>
+        <br />
+
+        
+        <div class="editor-label">
+            I have :-
+        </div>
+        <div class="editor-field">
+            @Html.RadioButton("ihave", "Citizenship")Citizenship
+             @Html.RadioButton("ihave", "Legal Permanent Residence")Legal Permanent Residence
+              @Html.RadioButton("ihave", "Work Visa")Work Visa
+               @Html.RadioButton("ihave", "Student Visa")Student Visa
+               @Html.RadioButton("ihave", "Visit Visa")Visit Visa
+            @Html.ValidationMessageFor(model => model.ihave)
+        </div>
+        <br />
+
+         <div class="editor-label">
+           Nationality :-
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.nationality, (SelectList)ViewData["nationality"], "Select Nationality")
+            @Html.ValidationMessageFor(model => model.nationality)
+        </div>
+        <br />
+
+        <div class="editor-label">
+            Passport :-
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.passport, (SelectList)ViewData["passport"], "Select Passport")
+            @Html.ValidationMessageFor(model => model.passport)
+        </div>
+        <br />
+
+      </fieldset>
+    
+    <fieldset style="border-style: none">
+    <legend>Family Details</legend>
+     <br />
+    
+     <div class="editor-label">
+          I live with :-
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.livingwith)
+            @Html.ValidationMessageFor(model => model.livingwith)
+        </div>
+        <br />
+
+        <div class="editor-label">
+            Father alive? :-
+        </div>
+        <div class="editor-field">
+            @Html.RadioButton("fatheralive", "Yes")Yes
+            @Html.RadioButton("fatheralive", "No")No
+            @Html.ValidationMessageFor(model => model.fatheralive)
+        </div>
+        <br />
+
+        <div class="editor-label">
+          Mother alive? :-
+        </div>
+        <div class="editor-field">
+            @Html.RadioButton("motheralive", "Yes")Yes
+            @Html.RadioButton("motheralive", "No")No
+            @Html.ValidationMessageFor(model => model.motheralive)
+        </div>
+        <br />
+
+         <div class="editor-label">
+           Brother :-
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(model => model.unmarriedbrother)
+            @Html.ValidationMessageFor(model => model.unmarriedbrother)
+        </div>
+       
+
+
+        <div class="editor-label">
+           Married:-
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.marriedbrother)
+            @Html.ValidationMessageFor(model => model.marriedbrother)
+        </div>
+        <br />
+
+       
+        <div class="editor-label">
+            Sister :-
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(model => model.unmarredsister)
+            @Html.ValidationMessageFor(model => model.unmarredsister)
+        </div>
+       
+        <div class="editor-label">
+            Married:-
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.marriedsister)
+            @Html.ValidationMessageFor(model => model.marriedsister)
+        </div>
+        <br />
+
+        <div class="editor-label">
+            Family status :-
+        </div>
+        <div class="editor-field">
+           @Html.RadioButton("familystatus", "1")Rich
+            @Html.RadioButton("familystatus", "2")Upper Middle Class
+             @Html.RadioButton("familystatus", "3")Middle Class
+            @Html.ValidationMessageFor(model => model.familystatus)
+        </div>
+        <br />
+
+    </fieldset>
+    
+    <fieldset style="border-style: none">
+    <legend>Contact By Phone</legend>
+     <br />
+
+      <div class="editor-label">
+           I want to display my contact :-
+        </div>
+        <div class="editor-field">
+            @Html.RadioButton("issecured", "1")Protected
+            @Html.RadioButton("issecured", "2")Public
+            @Html.ValidationMessageFor(model => model.issecured)
+        </div>
+        <br />
+
+         <div class="editor-label">
+            Email ID :-
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
+        <br />
+
+         <div class="editor-label">
+           Suitable time to call me/us at :-
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.timeforcall)
+            @Html.ValidationMessageFor(model => model.timeforcall)
+        </div>
+        <br />
+
+         <div class="editor-label">
+          Contact No :-
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.contactno)
+            @Html.ValidationMessageFor(model => model.contactno)
+        </div>
+        <br />
+
+         <div class="editor-label">
+            Persons to contact :-
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.persontocontact)
+            @Html.ValidationMessageFor(model => model.persontocontact)
+        </div>
+        <br />
+
+    </fieldset>
+       
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.bornin)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.bornin)
+            @Html.ValidationMessageFor(model => model.bornin)
+        </div>
+        <br />*@
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.growupin)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.growupin)
+            @Html.ValidationMessageFor(model => model.growupin)
+        </div>
+        <br />*@
+
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.relocatable)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.relocatable)
+            @Html.ValidationMessageFor(model => model.relocatable)
+        </div>
+        <br />*@
+
+       
+
+       
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.built)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.built)
+            @Html.ValidationMessageFor(model => model.built)
+        </div>
+        <br />*@
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.complexion)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.complexion)
+            @Html.ValidationMessageFor(model => model.complexion)
+        </div>
+        <br />*@
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.eyecolor)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.eyecolor)
+            @Html.ValidationMessageFor(model => model.eyecolor)
+        </div>
+        <br />
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.haircolor)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.haircolor)
+            @Html.ValidationMessageFor(model => model.haircolor)
+        </div>
+        <br />
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.food)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.food)
+            @Html.ValidationMessageFor(model => model.food)
+        </div>
+        <br />
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.candrink)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.candrink)
+            @Html.ValidationMessageFor(model => model.candrink)
+        </div>
+        <br />
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.cansmoke)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.cansmoke)
+            @Html.ValidationMessageFor(model => model.cansmoke)
+        </div>
+        <br />*@
+
+      
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.randomno)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.randomno)
+            @Html.ValidationMessageFor(model => model.randomno)
+        </div>
+        <br />
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.verificatoncode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.verificatoncode)
+            @Html.ValidationMessageFor(model => model.verificatoncode)
+        </div>
+        <br />
+
+       
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.isactive)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.isactive)
+            @Html.ValidationMessageFor(model => model.isactive)
+        </div>
+        <br />
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.isdeleted)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.isdeleted)
+            @Html.ValidationMessageFor(model => model.isdeleted)
+        </div>
+        <br />*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.password)
+            @Html.ValidationMessageFor(model => model.password)
+        </div>
+        <br />
+   @* <p>
+    <input type="button" id="autogenerate" value="Genrate" />
+    </p>*@
+    <div class="editor-label">
+            Genratepassword
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("Autogenrate", null, new { @id = "confirmpassword", onclick = "autogenerate" })
+            
+        </div>
+        <br />
+    
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ismobileverified)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ismobileverified)
+            @Html.ValidationMessageFor(model => model.ismobileverified)
+        </div>
+    
+   
+        <br />
+
+        <p>
+            <input type="submit" value="Save"/>
+        </p>
+   
+}
+
+

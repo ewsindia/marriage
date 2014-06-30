@@ -1,0 +1,94 @@
+﻿@model Marriage.Models.messages
+
+@{
+    ViewBag.Title = "Messages";
+    Layout = "~/Views/Home/UserMaster.cshtml";
+}
+
+<h2>Messages</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<link href="../../Content/style.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"> </script>
+<script type="text/javascript" src="../../Scripts/script.js"></script>
+</head>
+
+
+	<a href="#" class="popup">Click Here to Create a Popup</a>
+    
+    <div id="Popup"> 
+    	
+        <div class="close"></div>
+       	<span class="popup_tooltip">Press Esc to close <span class="arrow"></span></span>
+		<div id="popup_content">
+            @using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>messages</legend>
+
+      @*  <div class="editor-label">
+            @Html.HiddenFor(model => model.senderid)
+        </div>
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.senderid,(Session["Name"]))
+        
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.reciverid)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.reciverid,(SelectList)ViewData["Member"])
+            @Html.ValidationMessageFor(model => model.reciverid)
+        </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.subject)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.subject)
+            @Html.ValidationMessageFor(model => model.subject)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.message)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.message)
+            @Html.ValidationMessageFor(model => model.message)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.status)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.status)
+            @Html.ValidationMessageFor(model => model.status)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.sentdate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.sentdate)
+            @Html.ValidationMessageFor(model => model.sentdate)
+        </div>
+
+        <p>
+            <input type="submit" value="Send" />
+        </p>
+    </fieldset>
+}
+        </div>
+    
+    </div>
+    
+	<div class="loader"></div>
+   	<div id="backgroundPopup"></div>
+
+
+
+
+
