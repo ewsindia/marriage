@@ -11,56 +11,37 @@ namespace Marriage.Controllers
 {
     public class HomeController : Controller
     {
-        
-        MarriageexpDBContext db = new MarriageexpDBContext();
 
-
-     
+        MarriageexpDBContext DBContext = new MarriageexpDBContext();
 
         public ActionResult UserLogin()
         {
             return View();
         }
 
-        //
         // POST: /Account/LogOn
 
         [HttpPost]
-        public ActionResult UserLogin(LogIn log)
+        public ActionResult UserLogin(LogIn objLogin)
         {
-            var objmem = (from obj in db.members select new { obj.email, obj.password,obj.id });
             if (ModelState.IsValid)
             {
-                foreach (var rec in objmem)
+              var objMember = (from obj in DBContext.Members select obj).ToList();
+                if (objMember!=null)
                 {
-                    if (log.UserName == rec.email && log.Password == rec.password)
-                    {
-                        Session["Name"] = rec.id;
-                        FormsAuthentication.SetAuthCookie(log.UserName, false);
-                        return RedirectToAction("Welcome", "Home");
-
-                    }
+                    FormsAuthentication.SetAuthCookie(objLogin.UserName, false);
+                    return RedirectToAction("Welcome", "Home");
                 }
                 ModelState.AddModelError("", "The user name or password provided is incorrect.");
             }
-
             return View();
-
         }
 
-       
-       
-
-
-
-
-
-        //
         // GET: /Account/LogOff
 
         public ActionResult Logoff()
         {
-            FormsAuthentication.SignOut();
+            //FormsAuthentication.SignOut();
 
             return RedirectToAction("UserLogin", "Home");
         }
@@ -71,170 +52,154 @@ namespace Marriage.Controllers
             return View();
         }
 
-        List<SelectListItem> heightlst = new List<SelectListItem>();
-        private List<SelectListItem> getheight()
+        List<SelectListItem> Heightlist = new List<SelectListItem>();
+        private List<SelectListItem> getHeight()
         {
-            var height = (from objheight in db.singlefieldmaster where objheight.type == "Height" select new { objheight.id, objheight.name });
+            var objHeight = (from objheight in DBContext.SingleFieldMaster where objheight.Type == "Height" select new { id = objheight.Id, name = objheight.Name });
 
-            foreach (var he in height)
+            foreach (var obj in objHeight)
             {
-                SelectListItem st = new SelectListItem();
-                st.Text = he.name;
-                st.Value = he.id.ToString();
-                heightlst.Add(st);
+                SelectListItem objselectlistitem = new SelectListItem();
+                objselectlistitem.Text = obj.name;
+                objselectlistitem.Value = obj.id.ToString();
+                Heightlist.Add(objselectlistitem);
             }
-            return heightlst;
+            return Heightlist;
         }
 
-        List<SelectListItem> weightlst = new List<SelectListItem>();
-        private List<SelectListItem> getweight()
+        List<SelectListItem> Weightlist = new List<SelectListItem>();
+        private List<SelectListItem> getWeight()
         {
-            var weight = (from objweight in db.singlefieldmaster where objweight.type == "Weight" select new { objweight.id, objweight.name });
+            var objWeight = (from objweight in DBContext.SingleFieldMaster where objweight.Type == "Weight" select new { id = objweight.Id, name = objweight.Name });
 
-            foreach (var we in weight)
+            foreach (var obj in objWeight)
             {
-                SelectListItem st = new SelectListItem();
-                st.Text = we.name;
-                st.Value = we.id.ToString();
-                weightlst.Add(st);
+                SelectListItem objselectlistitem = new SelectListItem();
+                objselectlistitem.Text = obj.name;
+                objselectlistitem.Value = obj.id.ToString();
+                Weightlist.Add(objselectlistitem);
             }
-            return weightlst;
+            return Weightlist;
         }
 
-        List<SelectListItem> religinlst = new List<SelectListItem>();
-        private List<SelectListItem> getreligin()
+        List<SelectListItem> ReligionCastlist = new List<SelectListItem>();
+        private List<SelectListItem> getReligionCast()
         {
-            var religin = (from objreligin in db.singlefieldmaster where objreligin.type == "ReligionCast" select new { objreligin.id, objreligin.name });
+            var objReligionCast = (from objreligin in DBContext.SingleFieldMaster where objreligin.Type == "ReligionCast" select new { id = objreligin.Id, name = objreligin.Name });
 
-            foreach (var we in religin)
+            foreach (var obj in objReligionCast)
             {
-                SelectListItem st = new SelectListItem();
-                st.Text = we.name;
-                st.Value = we.id.ToString();
-                religinlst.Add(st);
+                SelectListItem objselectlistitem = new SelectListItem();
+                objselectlistitem.Text = obj.name;
+                objselectlistitem.Value = obj.id.ToString();
+                ReligionCastlist.Add(objselectlistitem);
             }
-            return religinlst;
+            return ReligionCastlist;
         }
 
-        List<SelectListItem> Educationlst = new List<SelectListItem>();
-        private List<SelectListItem> geteducation()
+        List<SelectListItem> Educationlist = new List<SelectListItem>();
+        private List<SelectListItem> getEducation()
         {
-            var education = (from objeducation in db.singlefieldmaster where objeducation.type == "Education" select new { objeducation.id, objeducation.name });
+            var objEducation = (from objeducation in DBContext.SingleFieldMaster where objeducation.Type == "Education" select new { id = objeducation.Id, name = objeducation.Name });
 
-            foreach (var edu in education)
+            foreach (var obj in objEducation)
             {
-                SelectListItem st = new SelectListItem();
-                st.Text = edu.name;
-                st.Value = edu.id.ToString();
-                Educationlst.Add(st);
+                SelectListItem objselectlistitem = new SelectListItem();
+                objselectlistitem.Text = obj.name;
+                objselectlistitem.Value = obj.id.ToString();
+                Educationlist.Add(objselectlistitem);
             }
-            return Educationlst;
+            return Educationlist;
         }
 
-        List<SelectListItem> culturelst = new List<SelectListItem>();
-        private List<SelectListItem> getculture()
+        List<SelectListItem> Culturelist = new List<SelectListItem>();
+        private List<SelectListItem> getCulture()
         {
-            var culture = (from objculture in db.singlefieldmaster where objculture.type == "Culture" select new { objculture.id, objculture.name });
+            var objCulture = (from objculture in DBContext.SingleFieldMaster where objculture.Type == "Culture" select new { id = objculture.Id, name = objculture.Name });
 
-            foreach (var cul in culture)
+            foreach (var obj in objCulture)
             {
-                SelectListItem st = new SelectListItem();
-                st.Text = cul.name;
-                st.Value = cul.id.ToString();
-                culturelst.Add(st);
+                SelectListItem objselectlistitem = new SelectListItem();
+                objselectlistitem.Text = obj.name;
+                objselectlistitem.Value = obj.id.ToString();
+                Culturelist.Add(objselectlistitem);
             }
-            return culturelst;
+            return Culturelist;
         }
 
-        List<SelectListItem> occuptionlst = new List<SelectListItem>();
-        private List<SelectListItem> getoccuption()
+        List<SelectListItem> Occuptionlist = new List<SelectListItem>();
+        private List<SelectListItem> getOccuption()
         {
-            var occuption = (from objoccuption in db.singlefieldmaster where objoccuption.type == "Occupation" select new { objoccuption.id, objoccuption.name });
+            var occuption = (from objoccuption in DBContext.SingleFieldMaster where objoccuption.Type == "Occupation" select new { id = objoccuption.Id, name = objoccuption.Name });
 
-            foreach (var occ in occuption)
+            foreach (var obj in occuption)
             {
-                SelectListItem st = new SelectListItem();
-                st.Text = occ.name;
-                st.Value = occ.id.ToString();
-                occuptionlst.Add(st);
+                SelectListItem objselectlistitem = new SelectListItem();
+                objselectlistitem.Text = obj.name;
+                objselectlistitem.Value = obj.id.ToString();
+                Occuptionlist.Add(objselectlistitem);
             }
-            return occuptionlst;
+            return Occuptionlist;
         }
 
-        List<SelectListItem> nationalitylst = new List<SelectListItem>();
-        private List<SelectListItem> getnationality()
+        List<SelectListItem> Nationalitylist = new List<SelectListItem>();
+        private List<SelectListItem> getNationality()
         {
-            var nationality = (from objnationality in db.singlefieldmaster where objnationality.type == "Nationality" select new { objnationality.id, objnationality.name });
+            var objNationality = (from objnationality in DBContext.SingleFieldMaster where objnationality.Type == "Nationality" select new { id = objnationality.Id, name = objnationality.Name });
 
-            foreach (var nat in nationality)
+            foreach (var obj in objNationality)
             {
-                SelectListItem st = new SelectListItem();
-                st.Text = nat.name;
-                st.Value = nat.id.ToString();
-                nationalitylst.Add(st);
+                SelectListItem objselectlistitem = new SelectListItem();
+                objselectlistitem.Text = obj.name;
+                objselectlistitem.Value = obj.id.ToString();
+                Nationalitylist.Add(objselectlistitem);
             }
-            return nationalitylst;
+            return Nationalitylist;
         }
 
-        List<SelectListItem> passportlst = new List<SelectListItem>();
-        private List<SelectListItem> getpassport()
+        List<SelectListItem> Passportlist = new List<SelectListItem>();
+        private List<SelectListItem> getPassport()
         {
-            var passport = (from objpassport in db.singlefieldmaster where objpassport.type == "Passport" select new { objpassport.id, objpassport.name });
+            var objPassport = (from objpassport in DBContext.SingleFieldMaster where objpassport.Type == "Passport" select new { id = objpassport.Id, name = objpassport.Name });
 
-            foreach (var pass in passport)
+            foreach (var obj in objPassport)
             {
-                SelectListItem st = new SelectListItem();
-                st.Text = pass.name;
-                st.Value = pass.id.ToString();
-                passportlst.Add(st);
+                SelectListItem objselectlistitem = new SelectListItem();
+                objselectlistitem.Text = obj.name;
+                objselectlistitem.Value = obj.id.ToString();
+                Passportlist.Add(objselectlistitem);
             }
-            return passportlst;
+            return Passportlist;
         }
 
-        List<SelectListItem> incomelst = new List<SelectListItem>();
-        private List<SelectListItem> getincome()
+        List<SelectListItem> Incomelist = new List<SelectListItem>();
+        private List<SelectListItem> getIncome()
         {
-            var income = (from objincome in db.singlefieldmaster where objincome.type == "CurrentIncomeLevel" select new { objincome.id, objincome.name });
+            var objIncome = (from objincome in DBContext.SingleFieldMaster where objincome.Type == "CurrentIncomeLevel" select new { id = objincome.Id, name = objincome.Name });
 
-            foreach (var incom in income)
+            foreach (var obj in objIncome)
             {
-                SelectListItem st = new SelectListItem();
-                st.Text = incom.name;
-                st.Value = incom.id.ToString();
-                incomelst.Add(st);
+                SelectListItem objselectlistitem = new SelectListItem();
+                objselectlistitem.Text = obj.name;
+                objselectlistitem.Value = obj.id.ToString();
+                Incomelist.Add(objselectlistitem);
             }
-            return incomelst;
+            return Incomelist;
         }
 
-        List<SelectListItem> agntlst = new List<SelectListItem>();
-        private List<SelectListItem> getagnt()
+        private IList<Country> getCountry(int countryid)
         {
-            var agt = (from objagt in db.agent_master select new { objagt.id, objagt.name });
-
-            foreach (var r in agt)
-            {
-                SelectListItem st = new SelectListItem();
-                st.Text = r.name;
-                st.Value = r.id.ToString();
-                agntlst.Add(st);
-            }
-            return agntlst;
+            return DBContext.Country.Where(m => m.CountryID == countryid).ToList();
+        }
+        private IList<StatesProvinces> getState(int countryid)
+        {
+            return DBContext.StatesProvinces.Where(c => c.CountryID == countryid).ToList();
         }
 
 
-        private IList<country> getcountry(int countryid)
+        public JsonResult getStateByCountryId(string countryid)
         {
-            return db.country.Where(m => m.CountryID == countryid).ToList();
-        }
-        private IList<statesprovinces> getstate(int countryid)
-        {
-            return db.statesprovinces.Where(c => c.CountryID == countryid).ToList();
-        }
-
-
-        public JsonResult getstateByCountryId(string countryid)
-        {
-            var stateList = this.getstate(Convert.ToInt32(countryid));
+            var stateList = this.getState(Convert.ToInt32(countryid));
             var stateData = stateList.Select(c => new SelectListItem()
             {
                 Text = c.StateName,
@@ -254,89 +219,92 @@ namespace Marriage.Controllers
         }
 
        
-        public ActionResult Registration(agent_master am)
+        public ActionResult Registration()
         {
-            ViewBag.country = db.country.ToList();
-            ViewBag.states = db.statesprovinces.ToList();
-            ViewData["height"] = new SelectList(getheight(), "Value", "Text");
-            ViewData["weight"] = new SelectList(getweight(), "Value", "Text");
-            ViewData["religion"] = new SelectList(getreligin(), "Value", "Text");
-            ViewData["education"] = new SelectList(geteducation(), "Value", "Text");
-            ViewData["culture"] = new SelectList(getculture(), "Value", "Text");
-            ViewData["occuption"] = new SelectList(getoccuption(), "Value", "Text");
-            ViewData["nationality"] = new SelectList(getnationality(), "Value", "Text");
-            ViewData["passport"] = new SelectList(getpassport(), "Value", "Text");
-            ViewData["income"] = new SelectList(getincome(), "Value", "Text");
+            ViewBag.country = DBContext.Country.ToList();
+            ViewBag.states = DBContext.StatesProvinces.ToList();
+            ViewData["height"] = new SelectList(getHeight(), "Value", "Text");
+            ViewData["weight"] = new SelectList(getWeight(), "Value", "Text");
+            ViewData["religion"] = new SelectList(getReligionCast(), "Value", "Text");
+            ViewData["education"] = new SelectList(getEducation(), "Value", "Text");
+            ViewData["culture"] = new SelectList(getCulture(), "Value", "Text");
+            ViewData["occuption"] = new SelectList(getOccuption(), "Value", "Text");
+            ViewData["nationality"] = new SelectList(getNationality(), "Value", "Text");
+            ViewData["passport"] = new SelectList(getPassport(), "Value", "Text");
+            ViewData["income"] = new SelectList(getIncome(), "Value", "Text");
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Registration(string countryid, members m, agent_master am)
+        public ActionResult Registration(string countryid, Members objMember)
         {
-           
-            db.members.Add(m);
-            db.SaveChanges();
-            FormsAuthentication.SetAuthCookie(m.displayname, false, "/");
+
+            DBContext.Members.Add(objMember);
+            DBContext.SaveChanges();
+            FormsAuthentication.SetAuthCookie(objMember.DisplayName, false, "/");
             return RedirectToAction("Welcome", "Home");
             
 
         }
-
-        public ActionResult profile(int Id)
+        
+        public ActionResult Profile(int Id)
         {
-            Session["Name"] = Id;
-            var detail = (from obj in db.members where obj.id.Equals(Id) select obj).Single();
-            return View("profile", detail);
+
+            //List<members> detail = new List<members>();
+            //detail = (from obj in DBContext.Members select obj).ToList();
+            //int Id;
+            Members objMember = (from obj in DBContext.Members where obj.id == Id select obj).FirstOrDefault();
+
+            return View(objMember);
+
+            
         }
 
         public ActionResult Search()
         {
 
-            List<members> list = new List<members>();
+            List<Members> list = new List<Members>();
 
-            var rules = from m in db.members select new { m.firstname, m.middlename, m.lastname, m.email };
+           var objMembers = (from obj in DBContext.Members select new {firstname = obj.FirstName, middlename = obj.MiddleName, lastname = obj.LastName, email = obj.Email });
             return View(list);
-           
         }
 
+        
+
         [HttpPost]
-        public ActionResult Search(members objmember)
+        public ActionResult Search(Members objMember)
         {
-            List<members> list = new List<members>();
-            var rules = (from m in db.members select new { m.firstname, m.middlename, m.lastname, m.email });
-           
-            List<members> member;
-            if (objmember.firstname != null)
+            List<Members> list = new List<Members>();
+            var objSearch = (from obj in DBContext.Members select new { firstname = obj.FirstName, middlename = obj.MiddleName, lastname = obj.LastName, email = obj.Email });
+
+            List<Members> Memberlist;
+            if (objMember.FirstName != null)
             {
-                member = (from obj in db.members
-                          where obj.firstname.StartsWith(objmember.firstname)
-                          select obj).ToList();
+                Memberlist = (from obj in DBContext.Members
+                              where obj.FirstName.StartsWith(objMember.FirstName)
+                              select obj).ToList();
             }
             else
             {
-                member = list;
+                Memberlist = list;
             }
-            return PartialView("List", member);
+            return PartialView("List", Memberlist);
         }
 
-       
-
-       
         public ActionResult Memberlist()
-        {
-            
+        { 
+            List<Members> list = new List<Members>();
 
-            List<members> list = new List<members>();
-
-            var rules = from m in db.members select new {m.firstname,m.middlename,m.lastname,m.email };
-            foreach (var rec in rules)
+            var objMembers = from obj in DBContext.Members select new {Id = obj.id,obj.FirstName,obj.MiddleName,obj.LastName,obj.Email };
+            foreach (var obj in objMembers)
             {
-                members mem = new members();
-                mem.firstname=rec.firstname;
-                mem.middlename=rec.middlename;
-                mem.lastname=rec.lastname;
-                mem.email=rec.email;
+                Members mem = new Members();
+                mem.id = obj.Id;
+                mem.FirstName=obj.FirstName;
+                mem.MiddleName=obj.MiddleName;
+                mem.LastName=obj.LastName;
+                mem.Email=obj.Email;
                 list.Add(mem);
             }
             return View(list);
@@ -347,39 +315,30 @@ namespace Marriage.Controllers
             return View();
         }
 
-        public ActionResult selectrecord(int Id,members objmem)
+        public ActionResult SendMessage()
         {
-            var rec = (from obj in db.members where obj.id == Id select obj);
-            Session["newId"] = Id;
-            return View();
+            return View("SendMessage");
         }
 
-        //public ActionResult SendMessages()
-        //{
-        //    return PartialView("_SendMessages");
-        //}
-
-       
-        public ActionResult SendMessages(messages objmessages, FormCollection frm)
+        [HttpPost]
+        public ActionResult SendMessage(Messages objMessages, FormCollection Frm)
         {
             if (!ModelState.IsValid)
                 return View();
-            objmessages.senderid = Convert.ToInt32(Session["Name"]);
-            objmessages.reciverid = Convert.ToInt32(Session["newId"]);
-            objmessages.subject = frm["subject"];
-            objmessages.message = frm["message"];
-            objmessages.status = frm["status"];
-            objmessages.sentdate = frm["sentdate"];
-            db.messages.Add(objmessages);
-            db.SaveChanges();
-
-            return View("SendMessages");
+            objMessages.SenderId = Convert.ToInt32(Frm["SenderId"]);
+            objMessages.ReciverId = Convert.ToInt32(Frm["ReciverId"]);
+            objMessages.Subject = Frm["Subject"];
+            objMessages.Message = Frm["Message"];
+            objMessages.Status = Convert.ToBoolean(Frm["Status"]);
+            objMessages.SentDate = Convert.ToDateTime(Frm["SentDate"]);
+            DBContext.Messages.Add(objMessages);
+            DBContext.SaveChanges();
+            return RedirectToAction("Memberlist","Home");
         }
 
-        public ActionResult Messages()
+        public ActionResult Category()
         {
             return View();
-        }
-       
+        } 
     }
 }

@@ -81,12 +81,14 @@ footer,
     -moz-border-radius: 0 0 4px 4px;
 }
 
-ul#menu {
+ul#menu 
+{
+	
     border-bottom: 1px #5C87B2 solid;
     padding: 0 0 2px;
     position: relative;
     margin: 0;
-    text-align: right;
+    text-align:right;
 }
 
 ul#menu li {
@@ -198,14 +200,16 @@ table th {
 div#title {
     display: block;
     text-align: left;
+    float :left;
 }
 
 #logindisplay 
 {
-	float: left;
+	
+	
     font-size: 1.1em;
     display: block;
-    text-align: right;
+    text-align:right;
     margin: 10px;
     color: White;
 }
@@ -221,6 +225,11 @@ div#title {
 }
 
 #logindisplay a:hover {
-    color: white;
+    color: blue;
     text-decoration: none;
+}
+
+#menucontainer
+{
+    margin-top:40px;
 }

@@ -1,4 +1,4 @@
-﻿@model Marriage.Models.members
+﻿@model Marriage.Models.Members
 
 @{
     ViewBag.Title = "Registration";
@@ -8,7 +8,7 @@
 <h2>Registration</h2>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
+<link href="../../Content/Site.css" rel="stylesheet" type="text/css" />
 <link href="../../Content/jquery-ui-1.10.4.css" rel="stylesheet" type="text/css" />
 <link href="../../Content/jquery-ui-1.10.4.min.css" rel="stylesheet" type="text/css" />
 
@@ -19,7 +19,7 @@
     $(document).ready(function () {
         $("#ddlcountry").change(function () {
             var CountryId = $(this).val();
-            $.getJSON("../Home/getstateByCountryId", { countryid: CountryId },
+            $.getJSON("../Home/getStateByCountryId", { countryid: CountryId },
                         function (stateData) {
                             var select = $("#ddlstates");
                             select.empty();
@@ -130,7 +130,7 @@
              @Html.RadioButton("writtenby", "2")Parent
               @Html.RadioButton("writtenby", "3")Family
                @Html.RadioButton("writtenby", "4")Friend
-            @Html.ValidationMessageFor(model => model.writtenby)
+            @Html.ValidationMessageFor(model => model.WrittenBy)
         </div>
         <br />
         
@@ -138,8 +138,9 @@
            First Name :-
         </div>
         <div class="editor-label">
-            @Html.EditorFor(model => model.firstname)
-            @Html.ValidationMessageFor(model => model.firstname)
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+            
         </div>
         
 
@@ -147,8 +148,8 @@
            Middle Name :-
         </div>
         <div class="editor-label">
-            @Html.EditorFor(model => model.middlename)
-            @Html.ValidationMessageFor(model => model.middlename)
+            @Html.EditorFor(model => model.MiddleName)
+            @Html.ValidationMessageFor(model => model.MiddleName)
         </div>
        
 
@@ -156,8 +157,8 @@
           Last Name :-
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.lastname)
-            @Html.ValidationMessageFor(model => model.lastname)
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
         </div>
         <br />
 
@@ -165,8 +166,8 @@
            Display Name :-
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.displayname)
-            @Html.ValidationMessageFor(model => model.displayname)
+            @Html.EditorFor(model => model.DisplayName)
+            @Html.ValidationMessageFor(model => model.DisplayName)
         </div>
         <br />
 
@@ -188,7 +189,7 @@
             @Html.RadioButton("timeformarriage", "Soon")Soon
              @Html.RadioButton("timeformarriage", "Within 12 Months")Within 12 Months
               @Html.RadioButton("timeformarriage", "NO Fixed Time")NO Fixed Time
-            @Html.ValidationMessageFor(model => model.timeformarriage)
+            @Html.ValidationMessageFor(model => model.TimeforMarriage)
         </div>
         <br />
 
@@ -198,7 +199,7 @@
         <div class="editor-field">
             @Html.RadioButton("gender", "Male")Male
             @Html.RadioButton("gender", "Female")Female
-            @Html.ValidationMessageFor(model => model.gender)
+            @Html.ValidationMessageFor(model => model.Gender)
         </div>
         <br />
 
@@ -210,7 +211,7 @@
              @Html.RadioButton("maritalstatus", "2")Divorced
               @Html.RadioButton("maritalstatus", "3")Windowed
                @Html.RadioButton("maritalstatus", "4")Separated
-            @Html.ValidationMessageFor(model => model.maritalstatus)
+            @Html.ValidationMessageFor(model => model.MaritalStatus)
         </div>
         <br />
 
@@ -218,8 +219,8 @@
            Date Of Birth :-
         </div>
         <div class="editor-field">
-           @Html.EditorFor(model => model.dob, new { @Class = "dob" })
-            @Html.ValidationMessageFor(model => model.dob)
+           @Html.EditorFor(model => model.DOB, new { @Class = "dob" })
+            @Html.ValidationMessageFor(model => model.DOB)
         </div>
         <br />
 
@@ -227,8 +228,8 @@
            Time Of Birth :-
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.tob)
-            @Html.ValidationMessageFor(model => model.tob)
+            @Html.EditorFor(model => model.TOB)
+            @Html.ValidationMessageFor(model => model.TOB)
         </div>
         <br />
 
@@ -236,8 +237,8 @@
             My height is :-
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.height, (SelectList)ViewData["height"], "Select Height")
-            @Html.ValidationMessageFor(model => model.height)
+            @Html.DropDownListFor(model => model.Height, (SelectList)ViewData["height"], "Select Height")
+            @Html.ValidationMessageFor(model => model.Height)
         </div>
         <br />
 
@@ -245,8 +246,8 @@
            My weight is :-
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.weight, (SelectList)ViewData["weight"], "Select Weight")
-            @Html.ValidationMessageFor(model => model.weight)
+            @Html.DropDownListFor(model => model.Weight, (SelectList)ViewData["weight"], "Select Weight")
+            @Html.ValidationMessageFor(model => model.Weight)
         </div>
         <br />
     
@@ -260,8 +261,8 @@
            Religion :-
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.religion, (SelectList)ViewData["religion"], "Select Religion")
-            @Html.ValidationMessageFor(model => model.religion)
+            @Html.DropDownListFor(model => model.Religion, (SelectList)ViewData["religion"], "Select Religion")
+            @Html.ValidationMessageFor(model => model.Religion)
         </div>
         <br />
 
@@ -272,7 +273,7 @@
            @Html.RadioButton("manglik", "Yes")Yes
            @Html.RadioButton("manglik", "No")No
            @Html.RadioButton("manglik", "Don't Know")Don't Know
-            @Html.ValidationMessageFor(model => model.manglik)
+            @Html.ValidationMessageFor(model => model.Manglik)
         </div>
         <br />
 
@@ -280,8 +281,8 @@
            Culture :-
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.culture, (SelectList)ViewData["culture"], "Select Culture")
-            @Html.ValidationMessageFor(model => model.culture)
+            @Html.DropDownListFor(model => model.Culture, (SelectList)ViewData["culture"], "Select Culture")
+            @Html.ValidationMessageFor(model => model.Culture)
         </div>
         <br />
 
@@ -292,7 +293,7 @@
            @Html.RadioButton("language", "1")English
            @Html.RadioButton("language", "2")Hindi
            @Html.RadioButton("language", "3")Marathi
-            @Html.ValidationMessageFor(model => model.language)
+            @Html.ValidationMessageFor(model => model.Language)
         </div>
         <br />
 
@@ -304,7 +305,7 @@
            @Html.RadioButton("lifestyle", "Modem")Modem
            @Html.RadioButton("lifestyle", "Traditional")Traditional
            @Html.RadioButton("lifestyle", "Will Tell You Later")Will Tell You Later
-            @Html.ValidationMessageFor(model => model.lifestyle)
+            @Html.ValidationMessageFor(model => model.Lifestyle)
         </div>
         <br />
         
@@ -319,8 +320,8 @@
             Last Degree :-
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.lastdegree, (SelectList)ViewData["education"], "Select Education")
-            @Html.ValidationMessageFor(model => model.lastdegree)
+            @Html.DropDownListFor(model => model.LastDegree, (SelectList)ViewData["education"], "Select Education")
+            @Html.ValidationMessageFor(model => model.LastDegree)
         </div>
         <br />
 
@@ -328,8 +329,8 @@
            Profession :-
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.profession, (SelectList)ViewData["occuption"], "Select Occuption")
-            @Html.ValidationMessageFor(model => model.profession)
+            @Html.DropDownListFor(model => model.Profession, (SelectList)ViewData["occuption"], "Select Occuption")
+            @Html.ValidationMessageFor(model => model.Profession)
         </div>
         <br />
 
@@ -337,8 +338,8 @@
            Annual income :-
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.annualincome, (SelectList)ViewData["income"], "Select Income")
-            @Html.ValidationMessageFor(model => model.annualincome)
+            @Html.DropDownListFor(model => model.AnnualIncome, (SelectList)ViewData["income"], "Select Income")
+            @Html.ValidationMessageFor(model => model.AnnualIncome)
         </div>
         <br />
     </fieldset>
@@ -352,10 +353,10 @@
         </div>
         <div class="editor-field">
 
-            @Html.DropDownListFor(Model => Model.countrycode, new SelectList(ViewBag.country as System.Collections.IEnumerable, "CountryID", "CountryCode"),
+            @Html.DropDownListFor(Model => Model.CountryCode, new SelectList(ViewBag.country as System.Collections.IEnumerable, "CountryID", "CountryCode"),
 "Select country", new { id = "ddlcountry" })
 
-            @Html.ValidationMessageFor(model => model.countrycode)
+            @Html.ValidationMessageFor(model => model.CountryCode)
         </div>
         <br />
 
@@ -363,9 +364,9 @@
           State Province :-
         </div>
         <div class="editor-field">
-           @Html.DropDownListFor(Model => Model.state, new SelectList(Enumerable.Empty<SelectListItem>(), "StateID", "StateName"),
+           @Html.DropDownListFor(Model => Model.State, new SelectList(Enumerable.Empty<SelectListItem>(), "StateID", "StateName"),
           "Select state", new { id = "ddlstates" })
-            @Html.ValidationMessageFor(model => model.state)
+            @Html.ValidationMessageFor(model => model.State)
         </div>
         <br />
 
@@ -373,8 +374,8 @@
            City :-
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.city)
-            @Html.ValidationMessageFor(model => model.city)
+            @Html.EditorFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City)
         </div>
         <br />
 
@@ -382,8 +383,8 @@
            Address :-
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.address1)
-            @Html.ValidationMessageFor(model => model.address1)
+            @Html.EditorFor(model => model.Address1)
+            @Html.ValidationMessageFor(model => model.Address1)
         </div>
         <br />
 
@@ -397,7 +398,7 @@
               @Html.RadioButton("ihave", "Work Visa")Work Visa
                @Html.RadioButton("ihave", "Student Visa")Student Visa
                @Html.RadioButton("ihave", "Visit Visa")Visit Visa
-            @Html.ValidationMessageFor(model => model.ihave)
+            @Html.ValidationMessageFor(model => model.Ihave)
         </div>
         <br />
 
@@ -405,8 +406,8 @@
            Nationality :-
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.nationality, (SelectList)ViewData["nationality"], "Select Nationality")
-            @Html.ValidationMessageFor(model => model.nationality)
+            @Html.DropDownListFor(model => model.Nationality, (SelectList)ViewData["nationality"], "Select Nationality")
+            @Html.ValidationMessageFor(model => model.Nationality)
         </div>
         <br />
 
@@ -414,8 +415,8 @@
             Passport :-
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.passport, (SelectList)ViewData["passport"], "Select Passport")
-            @Html.ValidationMessageFor(model => model.passport)
+            @Html.DropDownListFor(model => model.Password, (SelectList)ViewData["passport"], "Select Passport")
+            @Html.ValidationMessageFor(model => model.Password)
         </div>
         <br />
 
@@ -429,8 +430,8 @@
           I live with :-
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.livingwith)
-            @Html.ValidationMessageFor(model => model.livingwith)
+            @Html.EditorFor(model => model.LivingWith)
+            @Html.ValidationMessageFor(model => model.LivingWith)
         </div>
         <br />
 
@@ -440,7 +441,7 @@
         <div class="editor-field">
             @Html.RadioButton("fatheralive", "Yes")Yes
             @Html.RadioButton("fatheralive", "No")No
-            @Html.ValidationMessageFor(model => model.fatheralive)
+            @Html.ValidationMessageFor(model => model.FatherAlive)
         </div>
         <br />
 
@@ -450,7 +451,7 @@
         <div class="editor-field">
             @Html.RadioButton("motheralive", "Yes")Yes
             @Html.RadioButton("motheralive", "No")No
-            @Html.ValidationMessageFor(model => model.motheralive)
+            @Html.ValidationMessageFor(model => model.MotherAlive)
         </div>
         <br />
 
@@ -458,8 +459,8 @@
            Brother :-
         </div>
         <div class="editor-label">
-            @Html.EditorFor(model => model.unmarriedbrother)
-            @Html.ValidationMessageFor(model => model.unmarriedbrother)
+            @Html.EditorFor(model => model.UnmarriedBrother)
+            @Html.ValidationMessageFor(model => model.UnmarriedBrother)
         </div>
        
 
@@ -468,8 +469,8 @@
            Married:-
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.marriedbrother)
-            @Html.ValidationMessageFor(model => model.marriedbrother)
+            @Html.EditorFor(model => model.MarriedBrother)
+            @Html.ValidationMessageFor(model => model.MarriedBrother)
         </div>
         <br />
 
@@ -478,16 +479,16 @@
             Sister :-
         </div>
         <div class="editor-label">
-            @Html.EditorFor(model => model.unmarredsister)
-            @Html.ValidationMessageFor(model => model.unmarredsister)
+            @Html.EditorFor(model => model.UnmarredSister)
+            @Html.ValidationMessageFor(model => model.UnmarredSister)
         </div>
        
         <div class="editor-label">
             Married:-
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.marriedsister)
-            @Html.ValidationMessageFor(model => model.marriedsister)
+            @Html.EditorFor(model => model.MarriedSister)
+            @Html.ValidationMessageFor(model => model.MarriedSister)
         </div>
         <br />
 
@@ -498,7 +499,7 @@
            @Html.RadioButton("familystatus", "1")Rich
             @Html.RadioButton("familystatus", "2")Upper Middle Class
              @Html.RadioButton("familystatus", "3")Middle Class
-            @Html.ValidationMessageFor(model => model.familystatus)
+            @Html.ValidationMessageFor(model => model.FamilyStatus)
         </div>
         <br />
 
@@ -514,7 +515,7 @@
         <div class="editor-field">
             @Html.RadioButton("issecured", "1")Protected
             @Html.RadioButton("issecured", "2")Public
-            @Html.ValidationMessageFor(model => model.issecured)
+            @Html.ValidationMessageFor(model => model.Issecured)
         </div>
         <br />
 
@@ -522,8 +523,8 @@
             Email ID :-
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.email)
-            @Html.ValidationMessageFor(model => model.email)
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
         </div>
         <br />
 
@@ -531,8 +532,8 @@
            Suitable time to call me/us at :-
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.timeforcall)
-            @Html.ValidationMessageFor(model => model.timeforcall)
+            @Html.EditorFor(model => model.TimeForCall)
+            @Html.ValidationMessageFor(model => model.TimeForCall)
         </div>
         <br />
 
@@ -540,8 +541,8 @@
           Contact No :-
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.contactno)
-            @Html.ValidationMessageFor(model => model.contactno)
+            @Html.EditorFor(model => model.ContactNo)
+            @Html.ValidationMessageFor(model => model.ContactNo)
         </div>
         <br />
 
@@ -549,8 +550,8 @@
             Persons to contact :-
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.persontocontact)
-            @Html.ValidationMessageFor(model => model.persontocontact)
+            @Html.EditorFor(model => model.PersonToContact)
+            @Html.ValidationMessageFor(model => model.PersonToContact)
         </div>
         <br />
 
@@ -655,20 +656,20 @@
       
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.randomno)
+            @Html.LabelFor(model => model.Randomno)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.randomno)
-            @Html.ValidationMessageFor(model => model.randomno)
+            @Html.EditorFor(model => model.Randomno)
+            @Html.ValidationMessageFor(model => model.Randomno)
         </div>
         <br />
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.verificatoncode)
+            @Html.LabelFor(model => model.VerifiCationCode)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.verificatoncode)
-            @Html.ValidationMessageFor(model => model.verificatoncode)
+            @Html.EditorFor(model => model.VerifiCationCode)
+            @Html.ValidationMessageFor(model => model.VerifiCationCode)
         </div>
         <br />
 
@@ -693,11 +694,11 @@
         <br />*@
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.password)
+            @Html.LabelFor(model => model.Password)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.password)
-            @Html.ValidationMessageFor(model => model.password)
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
         </div>
         <br />
    @* <p>
@@ -714,11 +715,11 @@
     
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ismobileverified)
+            @Html.LabelFor(model => model.IsMobileVerified)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ismobileverified)
-            @Html.ValidationMessageFor(model => model.ismobileverified)
+            @Html.EditorFor(model => model.IsMobileVerified)
+            @Html.ValidationMessageFor(model => model.IsMobileVerified)
         </div>
     
    

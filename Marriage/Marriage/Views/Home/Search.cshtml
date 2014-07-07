@@ -1,19 +1,20 @@
-﻿@model IEnumerable<Marriage.Models.members>
+﻿@model IEnumerable<Marriage.Models.Members>
 
 @{
     ViewBag.Title = "Search";
     Layout = "~/Views/Home/UserMaster.cshtml";
 }
 
+
 <script  type="text/javascript">
     $(document).ready(function () {
         $("#txtfilter").keyup(function () {
             $("#tblData").hide('fast'); //Hide the Table showing All Data
-            $('#empInfoDetails').show('fast'); //Show the <div> showing filtered Data 
+            $('#MemberInfoDetails').show('fast'); //Show the <div> showing filtered Data 
             var data = $(this).val();
             var url = "/Home/Search/"; //The Url to the Action  Method of the Controller
-            var Emp = {}; //The Object to Send Data Back to the Controller
-            Emp.EmpName = $("#txtfilter").val();
+            var Member = {}; //The Object to Send Data Back to the Controller
+            Member.firstname = $("#txtfilter").val();
             //Check whether the TextBox Contain the text if it contain the Text then make ajax call
             if ($("#txtfilter").val().length > 0 || $("#txtfilter").val() != "") {
                 $.ajax({
@@ -22,13 +23,13 @@
                     data: Emp,
                     dataType: "html",
                     success: function (evt) {
-                            $('#empInfoDetails').html(evt);
+                            $('#MemberInfoDetails').html(evt);
                     },
                 });
             }
             else
             {
-                $('#empInfoDetails').hide('fast'); //Hide the <div>
+                $('#MemberInfoDetails').hide('fast'); //Hide the <div>
                 $("#tblData").show('fast'); //Hide the Table
             }
 
@@ -40,13 +41,14 @@
 Enter the Member name:-
 <input type="text" id="txtfilter" />
 
-<div id="empInfoDetails">
+<div id="MemberInfoDetails">
    
 </div>
 
+
 <table id="tblData">
     <tr>
-       
+      
         <th>
             firstname
         </th>
@@ -56,346 +58,36 @@ Enter the Member name:-
         <th>
             lastname
         </th>
-       
-        @*<th>
-            forwaht
-        </th>
         <th>
-            timeformarriage
+            displayname
         </th>
-        <th>
-            gender
-        </th>
-        <th>
-            maritalstatus
-        </th>
-        <th>
-            dob
-        </th>
-        <th>
-            tob
-        </th>
-        <th>
-            contactno
-        </th>
-        <th>
-            issecured
-        </th>
-        <th>
-            timeforcall
-        </th>
-        <th>
-            persontocontact
-        </th>
-        <th>
-            lastdegree
-        </th>
-        <th>
-            profession
-        </th>
-        <th>
-            familystatus
-        </th>
-        <th>
-            annualincome
-        </th>
-        <th>
-            livingwith
-        </th>
-        <th>
-            fatheralive
-        </th>
-        <th>
-            motheralive
-        </th>
-        <th>
-            marriedbrother
-        </th>
-        <th>
-            unmarriedbrother
-        </th>
-        <th>
-            marriedsister
-        </th>
-        <th>
-            unmarredsister
-        </th>
-        <th>
-            countrycode
-        </th>
-        <th>
-            state
-        </th>
-        <th>
-            city
-        </th>
-        <th>
-            address1
-        </th>
-        <th>
-            bornin
-        </th>
-        <th>
-            growupin
-        </th>
-        <th>
-            ihave
-        </th>
-        <th>
-            relocatable
-        </th>
-        <th>
-            nationality
-        </th>
-        <th>
-            passport
-        </th>
-        <th>
-            height
-        </th>
-        <th>
-            weight
-        </th>
-        <th>
-            built
-        </th>
-        <th>
-            complexion
-        </th>
-        <th>
-            eyecolor
-        </th>
-        <th>
-            haircolor
-        </th>
-        <th>
-            food
-        </th>
-        <th>
-            candrink
-        </th>
-        <th>
-            cansmoke
-        </th>
-        <th>
-            religion
-        </th>
-        <th>
-            manglik
-        </th>
-        <th>
-            culture
-        </th>
-        <th>
-            language
-        </th>
-        <th>
-            lifestyle
-        </th>
-        <th>
-            randomno
-        </th>
-        <th>
-            verificatoncode
-        </th>*@
+      
         <th>
             email
         </th>
-      @*  <th>
-            isactive
-        </th>
-        <th>
-            isdeleted
-        </th>
-        <th>
-            password
-        </th>
-        <th>
-            ismobileverified
-        </th>
-        <th>
-            agentid
-        </th>*@
-      @*  <th></th>*@
+    
     </tr>
 
 @foreach (var item in Model) {
     <tr>
        
         <td>
-            @Html.DisplayFor(modelItem => item.firstname)
+            @Html.DisplayFor(modelItem => item.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.middlename)
+            @Html.DisplayFor(modelItem => item.MiddleName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.lastname)
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisplayName)
         </td>
        
-       @* <td>
-            @Html.DisplayFor(modelItem => item.forwaht)
-        </td>
         <td>
-            @Html.DisplayFor(modelItem => item.timeformarriage)
+            @Html.DisplayFor(modelItem => item.Email)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.maritalstatus)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dob)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tob)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.contactno)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.issecured)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.timeforcall)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.persontocontact)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lastdegree)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.profession)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.familystatus)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.annualincome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.livingwith)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fatheralive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.motheralive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.marriedbrother)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.unmarriedbrother)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.marriedsister)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.unmarredsister)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.countrycode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.state)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.city)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.address1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.bornin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.growupin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ihave)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.relocatable)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nationality)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.passport)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.height)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.weight)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.built)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.complexion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.eyecolor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.haircolor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.food)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.candrink)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cansmoke)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.religion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.manglik)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.culture)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.language)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lifestyle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.randomno)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.verificatoncode)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.isactive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isdeleted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ismobileverified)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.agentid)
-        </td>*@
-       @* <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>*@
+      
     </tr>
 }
 

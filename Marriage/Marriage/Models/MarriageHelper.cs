@@ -13,15 +13,17 @@ namespace Marriage.Models
     public class catageory
     {
         public int looking_for { get; set; }
-        public string religion { get; set; }
-        public string cast { get; set; }
+        public int religion { get; set; }
+        public int cast { get; set; }
         public int marrtail_status { get; set; }
         public int age { get; set; }
         public int height { get; set; }
-        public string country { get; set; }
-        public string state { get; set; }
+        public int country { get; set; }
+        public int state { get; set; }
         public string city { get; set; }
-        public string education { get; set; }
-        public string profession { get; set; }
+        public int education { get; set; }
+        public int profession { get; set; }
     }
+
+    
 }

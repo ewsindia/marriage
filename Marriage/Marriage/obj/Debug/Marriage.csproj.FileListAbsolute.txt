@@ -8,8 +8,8 @@ F:\Suraj Work\Marriage\Marriage\bin\Marriage.dll
 F:\Suraj Work\Marriage\Marriage\bin\Marriage.pdb
 F:\Suraj Work\Marriage\Marriage\bin\EntityFramework.dll
 F:\Suraj Work\Marriage\Marriage\bin\MySql.Data.dll
-F:\Suraj Work\Marriage\Marriage\bin\MySql.Data.Entity.dll
 F:\Suraj Work\Marriage\Marriage\bin\EntityFramework.xml
 F:\Suraj Work\Marriage\Marriage\obj\Debug\ResolveAssemblyReference.cache
 F:\Suraj Work\Marriage\Marriage\obj\Debug\Marriage.dll
 F:\Suraj Work\Marriage\Marriage\obj\Debug\Marriage.pdb
+F:\Suraj Work\Marriage\Marriage\bin\MySql.Data.Entity.EF6.dll

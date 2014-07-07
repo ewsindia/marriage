@@ -12,17 +12,16 @@ namespace Marriage.Models
 {
     public class MarriageexpDBContext : DbContext
     {
-        public DbSet<country> country { get; set; }
-        public DbSet<fevoritelist> fevoritelist { get; set; }
-        public DbSet<friendlist> friendlist { get; set; }
-        public DbSet<members> members { get; set; }
-        public DbSet<messages> messages { get; set; }
-        public DbSet<singlefieldmaster> singlefieldmaster { get; set; }
-        public DbSet<statesprovinces> statesprovinces { get; set; }
-        public DbSet<useprofile> useprofile { get; set; }
-        public DbSet<multiuploads> multiuploads { get; set; }
-        public DbSet<admin> admin { get; set; }
-        public DbSet<agent_master> agent_master { get; set; }
-        public DbSet<simple> simple { get; set; }
+        public DbSet<Country> Country { get; set; }
+        public DbSet<FevoriteList> Fevoritelist { get; set; }
+        public DbSet<FriendList> Friendlist { get; set; }
+        public DbSet<Members> Members { get; set; }
+        public DbSet<Messages> Messages { get; set; }
+        public DbSet<SingleFieldMaster> SingleFieldMaster { get; set; }
+        public DbSet<StatesProvinces> StatesProvinces { get; set; }
+        public DbSet<MultiUploads> MultiUploads { get; set; }
+        public DbSet<Admin> Admin { get; set; }
+        public DbSet<AgentMaster> AgentMaster { get; set; }
+       
     }
 }
