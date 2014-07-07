@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Marriage.Models.Members>
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Home/UserMaster.cshtml";
+}
+
+
+<script  type="text/javascript">
+    $(document).ready(function () {
+        $("#txtfilter").keyup(function () {
+            $("#tblData").hide('fast'); //Hide the Table showing All Data
+            $('#MemberInfoDetails').show('fast'); //Show the <div> showing filtered Data 
+            var data = $(this).val();
+            var url = "/Home/Search/"; //The Url to the Action  Method of the Controller
+            var Member = {}; //The Object to Send Data Back to the Controller
+            Member.firstname = $("#txtfilter").val();
+            //Check whether the TextBox Contain the text if it contain the Text then make ajax call
+            if ($("#txtfilter").val().length > 0 || $("#txtfilter").val() != "") {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: Emp,
+                    dataType: "html",
+                    success: function (evt) {
+                            $('#MemberInfoDetails').html(evt);
+                    },
+                });
+            }
+            else
+            {
+                $('#MemberInfoDetails').hide('fast'); //Hide the <div>
+                $("#tblData").show('fast'); //Hide the Table
+            }
+
+        });
+    });
+</script>
+
+<h2>Search</h2>
+Enter the Member name:-
+<input type="text" id="txtfilter" />
+
+<div id="MemberInfoDetails">
+   
+</div>
+
+
+<table id="tblData">
+    <tr>
+      
+        <th>
+            firstname
+        </th>
+        <th>
+            middlename
+        </th>
+        <th>
+            lastname
+        </th>
+        <th>
+            displayname
+        </th>
+      
+        <th>
+            email
+        </th>
+    
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MiddleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisplayName)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+      
+    </tr>
+}
+
+</table>
